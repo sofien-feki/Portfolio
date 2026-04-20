@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sofien Feki — Visual Artist</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Outfit:wght@200;300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cream: #F5F0E8;
+  --ink: #0E0E0E;
+  --gold: #B8965A;
+  --gold-light: #D4AF7A;
+  --muted: #7A7570;
+  --surface: #1A1917;
+  --line: rgba(184,150,90,0.25);
+}
+
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--ink);
+  color: var(--cream);
+  font-family: 'Outfit', sans-serif;
+  font-weight: 300;
+  overflow-x: hidden;
+  cursor: crosshair;
+}
+
+.cursor {
+  position: fixed; width: 6px; height: 6px;
+  background: var(--gold); border-radius: 50%;
+  pointer-events: none; z-index: 9999; mix-blend-mode: difference;
+}
+.cursor-ring {
+  position: fixed; width: 32px; height: 32px;
+  border: 1px solid var(--gold); border-radius: 50%;
+  pointer-events: none; z-index: 9998; opacity: 0.6;
+}
+
+body::before {
+  content: "";
+  position: fixed; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+  pointer-events: none; z-index: 1000; opacity: 0.4;
+}
+
+/* ─── HERO ─── */
+.hero {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-left {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 100px 10% 140px;
+  position: relative;
+  z-index: 2;
+}
+
+.hero-deco {
+  position: absolute;
+  right: -2%; top: 50%;
+  transform: translateY(-50%);
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(180px, 22vw, 320px);
+  font-weight: 300; font-style: italic;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(184,150,90,0.08);
+  line-height: 1;
+  pointer-events: none; user-select: none; z-index: 1;
+}
+
+.hero-right {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 100px 10% 140px;
+  position: relative;
+  z-index: 2;
+}
+
+/* ─── PROFILE FRAME ─── */
+.profile-frame {
+  position: relative;
+  width: min(320px, 80%);
+  aspect-ratio: 1;
+}
+
+.profile-frame::before {
+  content: "";
+  position: absolute; inset: -14px;
+  border-radius: 50%;
+  border: 1px dashed rgba(184,150,90,0.35);
+  animation: spinSlow 24s linear infinite;
+}
+
+.profile-frame::after {
+  content: "";
+  position: absolute; inset: -5px;
+  border-radius: 50%;
+  border: 1px solid rgba(184,150,90,0.5);
+}
+
+@keyframes spinSlow {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+.profile-circle {
+  width: 100%; height: 100%;
+  border-radius: 50%;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  overflow: hidden;
+  position: relative;
+}
+
+.profile-circle img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* Lowered the position to 15% to ensure the head is fully visible */
+  object-position: center 15%; 
+  border-radius: 50%;
+  position: absolute;
+  inset: 0;
+}
+
+.profile-circle-icon {
+  width: 56px; height: 56px;
+  border: 1px solid rgba(184,150,90,0.3);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+}
+.profile-circle-icon svg {
+  width: 24px; height: 24px;
+  stroke: var(--gold); fill: none; stroke-width: 1.2; opacity: 0.65;
+}
+.profile-circle-hint {
+  font-size: 10px; letter-spacing: 2.5px;
+  text-transform: uppercase; color: var(--muted);
+  text-align: center; line-height: 1.8;
+}
+
+.hero-eyebrow {
+  font-size: 11px; letter-spacing: 4px; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 32px; font-weight: 400;
+  display: flex; align-items: center; gap: 12px;
+}
+.hero-eyebrow::before { content: ""; width: 24px; height: 1px; background: var(--gold); }
+
+.hero-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(64px, 9vw, 120px);
+  font-weight: 300; line-height: 0.88;
+  letter-spacing: -3px; margin-bottom: 40px;
+}
+.hero-name em { font-style: italic; color: var(--gold-light); }
+
+.hero-desc {
+  font-size: 15px; color: var(--muted);
+  max-width: 360px; line-height: 1.9; font-weight: 300; margin-bottom: 56px;
+}
+
+.hero-actions { display: flex; gap: 20px; align-items: center; }
+
+.btn-primary {
+  padding: 14px 40px;
+  border: 1px solid var(--gold); color: var(--gold);
+  text-decoration: none; font-size: 11px; letter-spacing: 3px;
+  text-transform: uppercase; font-family: 'Outfit', sans-serif;
+  font-weight: 400; transition: all 0.4s ease;
+  position: relative; overflow: hidden;
+}
+.btn-primary::before {
+  content: ""; position: absolute; inset: 0;
+  background: var(--gold); transform: translateX(-101%);
+  transition: transform 0.4s ease; z-index: -1;
+}
+.btn-primary:hover { color: var(--ink); }
+.btn-primary:hover::before { transform: translateX(0); }
+
+.btn-ghost {
+  font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+  color: var(--muted); text-decoration: none; font-weight: 400;
+  transition: color 0.3s; border-bottom: 1px solid transparent; padding-bottom: 2px;
+}
+.btn-ghost:hover { color: var(--cream); border-color: var(--cream); }
+
+.hero-bar {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  display: flex; gap: 64px; align-items: center;
+  padding: 24px 10%; border-top: 1px solid var(--line); z-index: 3;
+}
+.hero-bar-stat strong {
+  display: block; font-family: 'Cormorant Garamond', serif;
+  font-size: 32px; font-weight: 300; color: var(--gold-light);
+}
+.hero-bar-stat span { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); }
+
+/* ─── SECTIONS ─── */
+section { padding: 120px 10%; position: relative; }
+
+.section-label {
+  font-size: 10px; letter-spacing: 4px; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 16px;
+  display: flex; align-items: center; gap: 12px;
+}
+.section-label::before { content: ""; width: 24px; height: 1px; background: var(--gold); }
+
+.section-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(36px, 5vw, 64px);
+  font-weight: 300; line-height: 1.05; margin-bottom: 24px;
+}
+
+/* ─── ABOUT ─── */
+.about {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 80px; align-items: start;
+  border-top: 1px solid var(--line);
+}
+.about-bio { font-size: 16px; line-height: 1.9; color: rgba(245,240,232,0.7); font-weight: 300; }
+.about-bio strong { color: var(--cream); font-weight: 400; }
+
+.skills-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 1px; background: var(--line);
+  border: 1px solid var(--line); margin-top: 48px;
+}
+.skill-item {
+  background: var(--ink); padding: 18px 22px;
+  font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase;
+  color: var(--muted); transition: all 0.3s;
+}
+.skill-item:hover { background: var(--surface); color: var(--gold-light); }
+
+/* ─── WORK ─── */
+.work { border-top: 1px solid var(--line); }
+
+.tabs-nav {
+  display: flex; margin-bottom: 64px;
+  border-bottom: 1px solid var(--line);
+}
+.tab-btn {
+  padding: 16px 40px; background: transparent; border: none;
+  color: var(--muted); font-family: 'Outfit', sans-serif;
+  font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+  cursor: crosshair; transition: all 0.3s; position: relative;
+}
+.tab-btn::after {
+  content: ""; position: absolute;
+  bottom: -1px; left: 0; right: 0; height: 1px;
+  background: var(--gold); transform: scaleX(0); transition: transform 0.3s ease;
+}
+.tab-btn.active { color: var(--cream); }
+.tab-btn.active::after { transform: scaleX(1); }
+.tab-btn:hover { color: var(--cream); }
+
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+
+/* Gallery */
+.gallery { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.gallery-item {
+  aspect-ratio: 1/1; overflow: hidden;
+  position: relative; background: var(--surface);
+}
+
+.gallery-item-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(14,14,14,0.7) 0%, transparent 50%);
+  opacity: 0; transition: opacity 0.4s;
+  display: flex; align-items: flex-end; padding: 24px;
+}
+.gallery-item:hover .gallery-item-overlay { opacity: 1; }
+.gallery-item-label { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold-light); }
+
+.photo-placeholder {
+  width: 100%; height: 100%;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 12px; color: var(--muted);
+  border: 1px dashed rgba(184,150,90,0.12);
+  transition: border-color 0.3s;
+}
+.gallery-item:hover .photo-placeholder { border-color: rgba(184,150,90,0.3); }
+.photo-placeholder svg { width: 22px; height: 22px; stroke: rgba(184,150,90,0.4); fill: none; stroke-width: 1.2; }
+.photo-placeholder span { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; }
+
+/* Design */
+.gallery-design { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; }
+
+.design-card {
+  background: var(--surface); border: 1px solid var(--line);
+  overflow: hidden; transition: border-color 0.3s, transform 0.4s;
+  cursor: pointer; text-decoration: none; color: inherit; display: block;
+}
+.design-card:hover { border-color: var(--gold); transform: translateY(-6px); }
+
+/* Standardization for project image scaling */
+.design-card-img {
+  width: 100%;
+  aspect-ratio: 4/3;
+  overflow: hidden;
+  position: relative;
+}
+
+.design-card-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.design-card-hover-hint {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; transition: opacity 0.3s;
+  background: rgba(14,14,14,0.55);
+}
+.design-card:hover .design-card-hover-hint { opacity: 1; }
+.design-card-hover-hint span {
+  font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
+  color: var(--gold); border: 1px solid var(--gold);
+  padding: 10px 20px;
+}
+
+.design-card-info { padding: 20px 24px; display: flex; justify-content: space-between; align-items: center; }
+.design-card-title { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 300; margin-bottom: 6px; }
+.design-card-sub { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); }
+
+.design-card-arrow {
+  width: 32px; height: 32px; border: 1px solid var(--line);
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; transition: border-color 0.3s, transform 0.3s;
+}
+.design-card:hover .design-card-arrow { border-color: var(--gold); transform: rotate(45deg); }
+.design-card-arrow svg { width: 14px; height: 14px; stroke: var(--gold); fill: none; stroke-width: 1.5; }
+
+/* Video */
+.video-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; }
+.video-placeholder {
+  aspect-ratio: 16/9; background: var(--surface); border: 1px solid var(--line);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 16px; transition: border-color 0.3s; cursor: crosshair;
+}
+.video-placeholder:hover { border-color: var(--gold); }
+.video-icon {
+  width: 48px; height: 48px; border: 1px solid var(--gold);
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+}
+.video-icon::after {
+  content: ""; width: 0; height: 0;
+  border-top: 8px solid transparent; border-bottom: 8px solid transparent;
+  border-left: 14px solid var(--gold); margin-left: 4px;
+}
+.video-label { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--muted); }
+
+/* ─── CONTACT ─── */
+.contact {
+  border-top: 1px solid var(--line);
+  display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: end;
+}
+.contact-email {
+  font-family: 'Cormorant Garamond', serif; font-size: clamp(22px,3vw,38px);
+  font-weight: 300; color: var(--gold-light); text-decoration: none;
+  display: block; margin-top: 32px; transition: color 0.3s;
+  border-bottom: 1px solid var(--line); padding-bottom: 24px;
+}
+.contact-email:hover { color: var(--cream); }
+.contact-row {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 16px 0; border-bottom: 1px solid var(--line); font-size: 13px;
+}
+.contact-row-label { letter-spacing: 2px; text-transform: uppercase; color: var(--muted); font-size: 10px; }
+
+/* ─── FOOTER ─── */
+footer {
+  border-top: 1px solid var(--line); padding: 32px 10%;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.footer-mark { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 300; color: var(--gold); }
+.footer-copy { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); }
+
+/* ─── FADE UP ─── */
+.fade-up { opacity: 0; transform: translateY(30px); transition: all 0.8s ease-out; }
+.fade-up.visible { opacity: 1; transform: translateY(0); }
+
+/* ─── RESPONSIVE ─── */
+@media(max-width: 900px) {
+  .hero { grid-template-columns: 1fr; }
+  .hero-left { padding: 80px 8% 40px; }
+  .hero-right { padding: 20px 8% 120px; }
+  .profile-frame { width: min(240px, 60%); }
+  .hero-deco { display: none; }
+  .about, .contact { grid-template-columns: 1fr; gap: 48px; }
+  section { padding: 80px 8%; }
+  .gallery { grid-template-columns: 1fr 1fr; }
+  .gallery-item.wide { grid-column: span 2; }
+  .gallery-design { grid-template-columns: 1fr 1fr; gap: 16px; }
+  .hero-bar { gap: 32px; }
+}
+@media(max-width: 600px) {
+  .gallery { grid-template-columns: 1fr; }
+  .gallery-item.wide { grid-column: span 1; aspect-ratio: 4/3; }
+  .gallery-design { grid-template-columns: 1fr; }
+  .skills-grid { grid-template-columns: 1fr; }
+  .video-grid { grid-template-columns: 1fr; }
+  .tabs-nav .tab-btn { padding: 14px 16px; font-size: 10px; }
+}
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<section class="hero" style="padding:0;">
+  <div class="hero-deco">SF</div>
+  <div class="hero-left">
+    <p class="hero-eyebrow">Creative Visual Artist</p>
+    <h1 class="hero-name">Sofien<br><em>Feki</em></h1>
+    <p class="hero-desc">
+      Photography, graphic design &amp; video — crafted with precision and intentional storytelling.
+    </p>
+    <div class="hero-actions">
+      <a href="mailto:sofien.feki@example.com" class="btn-primary">Get in Touch</a>
+      <a href="Sofien_Feki_CV.pdf" download class="btn-ghost">Download CV</a>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="profile-frame">
+      <div class="profile-circle">
+          <img src="profilepicture.png" alt="Sofien Feki">
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-bar">
+    <div class="hero-bar-stat">
+      <strong>3+</strong>
+      <span>Years experience</span>
+    </div>
+    <div class="hero-bar-stat">
+      <strong>50+</strong>
+      <span>Projects</span>
+    </div>
+    <div class="hero-bar-stat">
+      <strong>3</strong>
+      <span>Disciplines</span>
+    </div>
+  </div>
+</section>
+
+<section class="about">
+  <div>
+    <p class="section-label">About</p>
+    <h2 class="section-title">Clarity through<br>the lens</h2>
+  </div>
+  <div>
+    <p class="about-bio">
+      I create visual work across <strong>photography</strong>, <strong>graphic design</strong>, and <strong>video editing</strong>. With a background in Computer Science &amp; Multimedia, I combine technical precision with a refined creative eye — helping brands and creators build visual identities that endure.
+    </p>
+    <div class="skills-grid">
+      <div class="skill-item">Brand Identity &amp; Logo</div>
+      <div class="skill-item">Social Media Design</div>
+      <div class="skill-item">Photo Retouching</div>
+      <div class="skill-item">Color Grading</div>
+      <div class="skill-item">Video Editing</div>
+      <div class="skill-item">Concept Development</div>
+    </div>
+  </div>
+</section>
+
+<section class="work">
+  <p class="section-label">Selected Work</p>
+  <h2 class="section-title" style="margin-bottom:48px;">Portfolio</h2>
+
+  <div class="tabs-nav">
+    <button class="tab-btn active" onclick="switchTab('photo',this)">Photography</button>
+    <button class="tab-btn" onclick="switchTab('design',this)">Design</button>
+    <button class="tab-btn" onclick="switchTab('video',this)">Video</button>
+  </div>
+
+  <div class="tab-panel active" id="tab-photo">
+    <div class="gallery">
+      <div class="gallery-item wide">
+        <div class="photo-placeholder">
+          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+          <span>Photo 01</span>
+        </div>
+        <div class="gallery-item-overlay"><span class="gallery-item-label">Portrait Study</span></div>
+      </div>
+      <div class="gallery-item">
+        <div class="photo-placeholder">
+          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+          <span>Photo 02</span>
+        </div>
+        <div class="gallery-item-overlay"><span class="gallery-item-label">Editorial</span></div>
+      </div>
+      <div class="gallery-item">
+        <div class="photo-placeholder">
+          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+          <span>Photo 03</span>
+        </div>
+        <div class="gallery-item-overlay"><span class="gallery-item-label">B&amp;W Series</span></div>
+      </div>
+      <div class="gallery-item">
+        <div class="photo-placeholder">
+          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+          <span>Photo 04</span>
+        </div>
+        <div class="gallery-item-overlay"><span class="gallery-item-label">Conceptual</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tab-panel" id="tab-design">
+    <div class="gallery-design">
+
+      <a class="design-card" href="study case celest/new case study place holder.html" target="_blank" rel="noopener">
+        <div class="design-card-img">
+          <img src="study case celest/Artboard 1.png" alt="Maison Céleste Study Case">
+          <div class="design-card-hover-hint"><span>View Case Study</span></div>
+        </div>
+        <div class="design-card-info">
+          <div class="design-card-info-left">
+            <p class="design-card-title">Maison Céleste</p>
+            <p class="design-card-sub">Study Case</p>
+          </div>
+          <div class="design-card-arrow">
+            <svg viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg>
+          </div>
+        </div>
+      </a>
+
+      <a class="design-card" href="study case AURELIA CAPITAL/study case.html" target="_blank" rel="noopener">
+        <div class="design-card-img">
+          <img src="study case AURELIA CAPITAL/3x/logonormale.jpg" alt="Project Description">
+          <div class="design-card-hover-hint"><span>View Case Study</span></div>
+        </div>
+        <div class="design-card-info">
+          <div class="design-card-info-left">
+            <p class="design-card-title">Aurelia Capital</p>
+            <p class="design-card-sub">Study Case</p>
+          </div>
+          <div class="design-card-arrow">
+            <svg viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg>
+          </div>
+        </div>
+      </a>
+
+      <a class="design-card" href="YOUR_PROJECT_LINK_HERE" target="_blank" rel="noopener">
+        <div class="design-card-img">
+          <img src="image_path.jpg" alt="Project Description">
+          <div class="design-card-hover-hint"><span>View Case Study</span></div>
+        </div>
+        <div class="design-card-info">
+          <div class="design-card-info-left">
+            <p class="design-card-title">PROJECT NAME</p>
+            <p class="design-card-sub">Category</p>
+          </div>
+          <div class="design-card-arrow">
+            <svg viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg>
+          </div>
+        </div>
+      </a>
+    </div> </div> <div class="tab-panel" id="tab-video">
+    <div class="video-grid">
+      <div class="video-placeholder">
+        <div class="video-icon"></div>
+        <p class="video-label">Reel — 2024</p>
+      </div>
+      <div class="video-placeholder">
+        <div class="video-icon"></div>
+        <p class="video-label">Brand Film</p>
+      </div>
+      <div class="video-placeholder">
+        <div class="video-icon"></div>
+        <p class="video-label">Short Form</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="contact">
+  <div>
+    <p class="section-label">Contact</p>
+    <h2 class="section-title">Let's build<br>something</h2>
+    <a href="mailto:sofien.feki@example.com" class="contact-email">sofien.feki@example.com</a>
+  </div>
+  <div>
+    <div class="contact-row">
+      <span class="contact-row-label">Location</span>
+      <span>Grombelia, Nabeul — TN</span>
+    </div>
+    <div class="contact-row">
+      <span class="contact-row-label">Phone</span>
+      <span>+216 92 582 537</span>
+    </div>
+    <div class="contact-row">
+      <span class="contact-row-label">Available for</span>
+      <span>Freelance &amp; Projects</span>
+    </div>
+    <div class="contact-row">
+      <span class="contact-row-label">Education</span>
+      <span>CS &amp; Multimedia — ISIM Sfax</span>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span class="footer-mark">SF</span>
+  <span class="footer-copy">© 2026 Sofien Feki — All rights reserved</span>
+</footer>
+
+<script>
+const cursor = document.getElementById('cursor');
+const ring = document.getElementById('cursorRing');
+let mx=0, my=0, rx=0, ry=0;
+document.addEventListener('mousemove', e => {
+  mx = e.clientX; my = e.clientY;
+  cursor.style.left = mx-3+'px';
+  cursor.style.top  = my-3+'px';
+});
+(function animRing() {
+  rx += (mx-rx-16)*0.12;
+  ry += (my-ry-16)*0.12;
+  ring.style.left = rx+'px';
+  ring.style.top  = ry+'px';
+  requestAnimationFrame(animRing);
+})();
+
+function switchTab(id, btn) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-'+id).classList.add('active');
+  btn.classList.add('active');
+}
+
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.08 });
+document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
