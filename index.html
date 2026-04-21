@@ -252,7 +252,7 @@ section { padding: 120px 10%; position: relative; }
 
 .tabs-nav {
   display: flex;
-  justify-content: center; /* Centering the tab button */
+  justify-content: center; /* Tab button is now centered on the line */
   margin-bottom: 64px;
   border-bottom: 1px solid var(--line);
 }
@@ -274,35 +274,7 @@ section { padding: 120px 10%; position: relative; }
 .tab-panel { display: none; }
 .tab-panel.active { display: block; }
 
-/* Gallery */
-.gallery { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
-.gallery-item {
-  aspect-ratio: 1/1; overflow: hidden;
-  position: relative; background: var(--surface);
-}
-
-.gallery-item-overlay {
-  position: absolute; inset: 0;
-  background: linear-gradient(to top, rgba(14,14,14,0.7) 0%, transparent 50%);
-  opacity: 0; transition: opacity 0.4s;
-  display: flex; align-items: flex-end; padding: 24px;
-}
-.gallery-item:hover .gallery-item-overlay { opacity: 1; }
-.gallery-item-label { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold-light); }
-
-.photo-placeholder {
-  width: 100%; height: 100%;
-  display: flex; flex-direction: column;
-  align-items: center; justify-content: center;
-  gap: 12px; color: var(--muted);
-  border: 1px dashed rgba(184,150,90,0.12);
-  transition: border-color 0.3s;
-}
-.gallery-item:hover .photo-placeholder { border-color: rgba(184,150,90,0.3); }
-.photo-placeholder svg { width: 22px; height: 22px; stroke: rgba(184,150,90,0.4); fill: none; stroke-width: 1.2; }
-.photo-placeholder span { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; }
-
-/* Design */
+/* Design Gallery */
 .gallery-design { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; }
 
 .design-card {
@@ -328,7 +300,10 @@ section { padding: 120px 10%; position: relative; }
 
 .design-card-hover-hint {
   position: absolute; inset: 0;
-  display: flex; align-items: center; justify-content: center;
+  display: flex; 
+  align-items: flex-end; /* Lowered button position */
+  justify-content: center;
+  padding-bottom: 30px; /* Padding to keep it just above the card info */
   opacity: 0; transition: opacity 0.3s;
   background: rgba(14,14,14,0.55);
 }
@@ -350,25 +325,6 @@ section { padding: 120px 10%; position: relative; }
 }
 .design-card:hover .design-card-arrow { border-color: var(--gold); transform: rotate(45deg); }
 .design-card-arrow svg { width: 14px; height: 14px; stroke: var(--gold); fill: none; stroke-width: 1.5; }
-
-/* Video */
-.video-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; }
-.video-placeholder {
-  aspect-ratio: 16/9; background: var(--surface); border: 1px solid var(--line);
-  display: flex; flex-direction: column; align-items: center; justify-content: center;
-  gap: 16px; transition: border-color 0.3s; cursor: crosshair;
-}
-.video-placeholder:hover { border-color: var(--gold); }
-.video-icon {
-  width: 48px; height: 48px; border: 1px solid var(--gold);
-  border-radius: 50%; display: flex; align-items: center; justify-content: center;
-}
-.video-icon::after {
-  content: ""; width: 0; height: 0;
-  border-top: 8px solid transparent; border-bottom: 8px solid transparent;
-  border-left: 14px solid var(--gold); margin-left: 4px;
-}
-.video-label { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--muted); }
 
 /* ─── CONTACT ─── */
 .contact {
@@ -409,17 +365,12 @@ footer {
   .hero-deco { display: none; }
   .about, .contact { grid-template-columns: 1fr; gap: 48px; }
   section { padding: 80px 8%; }
-  .gallery { grid-template-columns: 1fr 1fr; }
-  .gallery-item.wide { grid-column: span 2; }
   .gallery-design { grid-template-columns: 1fr 1fr; gap: 16px; }
   .hero-bar { gap: 32px; }
 }
 @media(max-width: 600px) {
-  .gallery { grid-template-columns: 1fr; }
-  .gallery-item.wide { grid-column: span 1; aspect-ratio: 4/3; }
   .gallery-design { grid-template-columns: 1fr; }
   .skills-grid { grid-template-columns: 1fr; }
-  .video-grid { grid-template-columns: 1fr; }
   .tabs-nav .tab-btn { padding: 14px 16px; font-size: 10px; }
 }
 </style>
@@ -490,7 +441,7 @@ footer {
   <h2 class="section-title" style="margin-bottom:48px;">Portfolio</h2>
 
   <div class="tabs-nav">
-    <!-- Centered and active by default -->
+    <!-- Centered and set as active by default -->
     <button class="tab-btn active" onclick="switchTab('design',this)">Design</button>
   </div>
 
