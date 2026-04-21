@@ -132,7 +132,6 @@ body::before {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  /* Lowered the position to 15% to ensure the head is fully visible */
   object-position: center 15%; 
   border-radius: 50%;
   position: absolute;
@@ -252,7 +251,9 @@ section { padding: 120px 10%; position: relative; }
 .work { border-top: 1px solid var(--line); }
 
 .tabs-nav {
-  display: flex; margin-bottom: 64px;
+  display: flex;
+  justify-content: center; /* Centering the tab button */
+  margin-bottom: 64px;
   border-bottom: 1px solid var(--line);
 }
 .tab-btn {
@@ -311,7 +312,6 @@ section { padding: 120px 10%; position: relative; }
 }
 .design-card:hover { border-color: var(--gold); transform: translateY(-6px); }
 
-/* Standardization for project image scaling */
 .design-card-img {
   width: 100%;
   aspect-ratio: 4/3;
@@ -435,10 +435,10 @@ footer {
     <p class="hero-eyebrow">Creative Visual Artist</p>
     <h1 class="hero-name">Sofien<br><em>Feki</em></h1>
     <p class="hero-desc">
-      Photography, graphic design &amp; video — crafted with precision and intentional storytelling.
+      Art direction & design — crafted with precision and intentional storytelling.
     </p>
     <div class="hero-actions">
-      <a href="mailto:sofien.feki@example.com" class="btn-primary">Get in Touch</a>
+      <a href="mailto:sofien.feki.pro@gmail.com" class="btn-primary">Get in Touch</a>
       <a href="Sofien_Feki_CV.pdf" download class="btn-ghost">Download CV</a>
     </div>
   </div>
@@ -457,7 +457,7 @@ footer {
       <span>Years experience</span>
     </div>
     <div class="hero-bar-stat">
-      <strong>50+</strong>
+      <strong>20+</strong>
       <span>Projects</span>
     </div>
     <div class="hero-bar-stat">
@@ -470,19 +470,17 @@ footer {
 <section class="about">
   <div>
     <p class="section-label">About</p>
-    <h2 class="section-title">Clarity through<br>the lens</h2>
+    <h2 class="section-title">Clarity through<br>Precision</h2>
   </div>
   <div>
     <p class="about-bio">
-      I create visual work across <strong>photography</strong>, <strong>graphic design</strong>, and <strong>video editing</strong>. With a background in Computer Science &amp; Multimedia, I combine technical precision with a refined creative eye — helping brands and creators build visual identities that endure.
+     <strong> Art direction </strong>and <strong>visual identity systems</strong>. Drawing on a background in Computer Science and Multimedia, I combine technical precision with a refined creative eye to create enduring design.
     </p>
     <div class="skills-grid">
-      <div class="skill-item">Brand Identity &amp; Logo</div>
-      <div class="skill-item">Social Media Design</div>
-      <div class="skill-item">Photo Retouching</div>
-      <div class="skill-item">Color Grading</div>
-      <div class="skill-item">Video Editing</div>
-      <div class="skill-item">Concept Development</div>
+      <div class="skill-item">Visual Identity Systems</div>
+      <div class="skill-item">Editorial Typography</div>
+      <div class="skill-item">Art Direction</div>
+      <div class="skill-item">Visual Consulting</div>
     </div>
   </div>
 </section>
@@ -492,12 +490,12 @@ footer {
   <h2 class="section-title" style="margin-bottom:48px;">Portfolio</h2>
 
   <div class="tabs-nav">
-    <button class="tab-btn active" onclick="switchTab('photo',this)">Photography</button>
-    <button class="tab-btn" onclick="switchTab('design',this)">Design</button>
-    <button class="tab-btn" onclick="switchTab('video',this)">Video</button>
+    <!-- Centered and active by default -->
+    <button class="tab-btn active" onclick="switchTab('design',this)">Design</button>
   </div>
 
-  <div class="tab-panel" id="tab-design">
+  <!-- Panel active by default -->
+  <div class="tab-panel active" id="tab-design">
     <div class="gallery-design">
 
       <a class="design-card" href="study case celest/new case study place holder.html" target="_blank" rel="noopener">
@@ -518,7 +516,7 @@ footer {
 
       <a class="design-card" href="study case AURELIA CAPITAL/study case.html" target="_blank" rel="noopener">
         <div class="design-card-img">
-          <img src="study case AURELIA CAPITAL/3x/logonormale.jpg" alt="Project Description">
+          <img src="study case AURELIA CAPITAL/3x/logonormale.jpg" alt="Aurelia Capital">
           <div class="design-card-hover-hint"><span>View Case Study</span></div>
         </div>
         <div class="design-card-info">
@@ -547,6 +545,7 @@ footer {
           </div>
         </div>
       </a>
+    </div>
   </div>
 </section>
 
@@ -554,7 +553,7 @@ footer {
   <div>
     <p class="section-label">Contact</p>
     <h2 class="section-title">Let's build<br>something</h2>
-    <a href="mailto:sofien.feki@example.com" class="contact-email">sofien.feki@example.com</a>
+    <a href="mailto:sofien.feki.pro@gmail.com" class="contact-email">sofien.feki.pro@gmail.com</a>
   </div>
   <div>
     <div class="contact-row">
@@ -567,7 +566,7 @@ footer {
     </div>
     <div class="contact-row">
       <span class="contact-row-label">Available for</span>
-      <span>Freelance &amp; Projects</span>
+      <span>Consulting &amp; Projects</span>
     </div>
     <div class="contact-row">
       <span class="contact-row-label">Education</span>
